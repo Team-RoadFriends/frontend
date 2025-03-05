@@ -29,6 +29,7 @@ import Register from './routes/authorization/Register';
 
 // 마이페이지
 import MyInfoManagement from './routes/myPage/MyInfoManagement';
+import MyInfoManagementEdit from './routes/myPage/MyInfoManagementEdit';
 // import ProfileModify from './routes/myPage/ProfileModify';
 // import LicenseModify from './routes/myPage/LicenseModify';
 // import MyReservationHistory from './routes/myPage/MyReservationHistory';
@@ -86,11 +87,12 @@ function App() {
 
           {/* 마이페이지 */}
           <Route path='/myPage'>
-            {/* 내 정보 관리 */}
-            <Route path='info' element={<MyInfoManagement />}>
-              {/* <Route path='profileModify' element={<ProfileModify />} />
-              <Route path='licenseModify' element={<LicenseModify />} /> */}
-            </Route>
+                    {/* 내 정보 관리 */}
+                    <Route path='info' element={<MyInfoManagement />} />
+                    <Route path='info/edit' element={<MyInfoManagementEdit />} />  {/* 수정 페이지 라우트 */}
+
+                    {/* 내 예약 내역 (추후 추가 가능) */}
+                    {/* <Route path='history' element={<MyReservationHistory />} /> */}
 
             {/* 내 예약 내역 */}
             {/* <Route path='history' element={<MyReservationHistory />}>
