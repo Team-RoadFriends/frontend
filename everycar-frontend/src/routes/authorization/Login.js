@@ -32,7 +32,7 @@ const Login = () => {
             // 로그인 성공 시 JWT 토큰 저장
             localStorage.setItem('token', data.token);  // 서버에서 반환한 토큰을 localStorage에 저장
             alert('로그인 성공!');
-            window.location.href = '/mypage';  // 예: 마이페이지로 리디렉션
+            window.location.href = '/';  // 예: 마이페이지로 리디렉션
         })
         .catch(error => {
             console.error('로그인 실패:', error);
