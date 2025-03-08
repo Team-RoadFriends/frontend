@@ -16,7 +16,7 @@ const Register = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData({ ...formData, [name]: name === "userGender" ? Number(value) :value });
     };
 
     const handleSubmit = async (e) => {
@@ -48,10 +48,10 @@ const Register = () => {
                 <input type="email" name="userEmail" placeholder="이메일" onChange={handleChange} required /><br />
                 <input type="text" name="userPhone" placeholder="전화번호" onChange={handleChange} required /><br />
                 <label>
-                    <input type="radio" name="userGender" value={1} checked={formData.userGender == 1} onChange={handleChange} /> 여성
+                    <input type="radio" name="userGender" value={1} checked={formData.userGender === 1} onChange={handleChange} /> 여성
                 </label>
                 <label>
-                    <input type="radio" name="userGender" value={2} checked={formData.userGender == 2} onChange={handleChange} /> 남성
+                    <input type="radio" name="userGender" value={2} checked={formData.userGender === 2} onChange={handleChange} /> 남성
                 </label><br />
                 <input type="date" name="userBirth" onChange={handleChange} required /><br />
                 <input type="text" name="userAddress" placeholder="주소" onChange={handleChange} required /><br />

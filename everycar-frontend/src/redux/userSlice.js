@@ -1,7 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// localStorage에서 유저 정보 가져오기
-const storedUserInfo = JSON.parse(localStorage.getItem('userInfo')) || {
+// JSON 파싱을 안전하게 수행하는 함수
+const safeParseJSON = (item, defaultValue) => {
+    try {
+        return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+        console.error(`Error parsing JSON from localStorage: ${error}`);
+        return defaultValue;
+    }
+};
+
+// localStorage에서 유저 정보 가져오기 (JSON.parse 오류 방지)
+const storedUserInfo = safeParseJSON(localStorage.getItem('userInfo'), {
     userName: '',
     userId: '',
     userEmail: '',
@@ -9,14 +19,15 @@ const storedUserInfo = JSON.parse(localStorage.getItem('userInfo')) || {
     userGender: '',
     userBirth: '',
     userAddress: ''
-};
-// localStorage에서 면허 정보 가져오기
-const storedLicenseInfo = JSON.parse(localStorage.getItem('licenseInfo')) || {
-    licenseNum: '', // 면허 번호
-    licenseDate: '', // 면허 발급일
-    licenseEndDate: '', // 면허 만료일
-    licensePhoto: '', // 면허 사진
-};
+});
+
+// localStorage에서 면허 정보 가져오기 (JSON.parse 오류 방지)
+const storedLicenseInfo = safeParseJSON(localStorage.getItem('licenseInfo'), {
+    licenseNum: '',
+    licenseDate: '',
+    licenseEndDate: '',
+    licensePhoto: ''
+});
 
 // 초기 상태
 const initialState = {
@@ -33,8 +44,10 @@ const userSlice = createSlice({
             state.isLoggedIn = true;
             state.userInfo = action.payload.userInfo;
             state.licenseInfo = action.payload.licenseInfo;
-            localStorage.setItem('userInfo', JSON.stringify(action.payload.userInfo)); // localStorage에 저장
-            localStorage.setItem('licenseInfo', JSON.stringify(action.payload.userInfo)); // localStorage에 저장
+            
+            // localStorage에 올바르게 저장
+            localStorage.setItem('userInfo', JSON.stringify(action.payload.userInfo));
+            localStorage.setItem('licenseInfo', JSON.stringify(action.payload.licenseInfo)); 
         },
         logoutUser: (state) => {
             state.isLoggedIn = false;
@@ -53,25 +66,28 @@ const userSlice = createSlice({
                 licenseEndDate: '',
                 licensePhoto: null,
             };
-            localStorage.removeItem('token'); // 로그아웃 시 토큰 삭제
-            localStorage.removeItem('userInfo'); // localStorage에서 삭제
-            localStorage.removeItem('LicenseInfo'); // localStorage에서 삭제
+
+            // localStorage에서 올바르게 삭제
+            localStorage.removeItem('token');
+            localStorage.removeItem('userInfo');
+            localStorage.removeItem('licenseInfo'); 
         },
         setUserInfo: (state, action) => {
             state.isLoggedIn = true;
             state.userInfo = action.payload;
+
+            // localStorage에 저장
             localStorage.setItem('userInfo', JSON.stringify(action.payload));
         },
         setLicenseInfo: (state, action) => {
             state.licenseInfo = action.payload;
+
+            // localStorage에 저장
             localStorage.setItem('licenseInfo', JSON.stringify(action.payload));
         },
     },
 });
 
-export const {
-    loginUser, logoutUser,
-    setUserInfo, setLicenseInfo
-} = userSlice.actions;
+export const { loginUser, logoutUser, setUserInfo, setLicenseInfo } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -40,6 +40,7 @@ import Register from './routes/authorization/Register';
 import MyInfoManagement from './routes/myPage/info/MyInfoManagement';
 import ProfileModify from './routes/myPage/info/ProfileModify';
 import LicenseModify from './routes/myPage/info/LicenseModify';
+import LicenseCreate from './routes/myPage/info/LicenseCreate';
 /* 내 예약 내역 페이지 */
 import MyReservationHistory from './routes/myPage/reservation/MyReservationHistory';
 // import MyReservationHistoryDetail from './routes/myPage/reservation/MyReservationHistoryDetail';
@@ -126,6 +127,7 @@ function App() {
             <Route path='info' element={<MyInfoManagement />} />
             <Route path='info/profile' element={<ProfileModify />} />
             <Route path='info/license' element={<LicenseModify />} />
+            <Route path='info/licenseCreate' element={<LicenseCreate />} />
 
             {/* 내 예약 내역 */}
             <Route path='history' element={<MyReservationHistory />} />

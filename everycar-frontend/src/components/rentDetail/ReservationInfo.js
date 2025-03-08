@@ -3,19 +3,14 @@ import { useState, useEffect } from 'react';
 import styles from '../../css/rentDetail/ReservationInfo.module.scss';
 import { vwFont } from '../../utils';
 import useEligibilityCheck from '../hooks/useEligibilityCheck';
-
-// Redux
-import { useDispatch } from 'react-redux';
-import { loginUser, logoutUser } from '../../redux/userSlice';
-
-// 더미 유저 데이터 가져오기
-import dummyUsers from '../../dummyData/dummyUser';
+import { useSelector } from 'react-redux';
 
 // 우측 예약정보
 function ReservationInfo({ title, car, SubTitleH3, totalPrice }) {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
+    
+    // 로그인 여부 및 유저 정보 가져오기
+    const { isLoggedIn, userInfo } = useSelector(state => state.user);
     // 자격여부 및 에러메시지
     const { isEligible, errorMessage } = useEligibilityCheck();
 
@@ -25,22 +20,6 @@ function ReservationInfo({ title, car, SubTitleH3, totalPrice }) {
             navigate(`/reservation/rentReservation/${car.car_id}`);
         }
     }
-
-    // 유저 테스트
-    const [selectedUser, setSelectedUser] = useState(dummyUsers[0]);
-
-   useEffect (() => { // 선택된 랜덤 유저
-    const randomUser = dummyUsers[Math.floor(Math.random() * dummyUsers.length)];
-    setSelectedUser(randomUser);
-
-    if (randomUser.isLoggedIn) {
-        dispatch(loginUser({ birthDate: randomUser.birthDate, licenseIssuedDate: randomUser.licenseIssuedDate }));
-    } else {
-        dispatch(logoutUser());
-    }
-
-    console.log(randomUser);
-    }, [dispatch]);
 
     return (
         <div className={`${styles.reservationInfoContainer} ${styles.container}`}>

@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const useEligibilityCheck = () => {
-    const { isLoggedIn, birthDate, licenseIssuedDate } = useSelector((state) => state.user);
+    const { isLoggedIn, userInfo, licenseInfo } = useSelector((state) => state.user);
     const [isEligible, setIsEligible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+
+    const birthDate = userInfo?.userBirth;
+    const licenseIssuedDate = licenseInfo?.licenseDate;
 
     // 자격여부 체크
     const checkEligibility = () => {

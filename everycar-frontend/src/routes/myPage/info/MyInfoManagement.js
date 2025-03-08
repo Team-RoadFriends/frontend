@@ -61,11 +61,11 @@ function Profile() {
                         </tr>
                         <tr>
                             <th>성별</th>
-                            <td>{ userInfo.userGender === 1 ? '여' : '남' }</td>
+                            <td>{userInfo.userGender === 1 ? '여' : '남'}</td>
                         </tr>
                         <tr>
                             <th>이메일</th>
-                            <td>{ userInfo.userEmail }</td>
+                            <td>{userInfo.userEmail}</td>
                         </tr>
                         <tr>
                             <th>전화번호</th>
@@ -101,60 +101,78 @@ function LicenseInfo() {
     const { licenseInfo } = useLicense();
 
     if (loading) return <p>Loading...</p>
-    if (!userInfo || !licenseInfo || !licenseInfo.licenseNum) return <p>유저 정보가 없거나 등록된 면허 정보가 없습니다.</p>
+    if (!userInfo) return <p>유저 정보 없음</p>
 
-    const movePageHandler = () => {
-        navigate('/myPage/info/license');
-    }
+    // 등록 페이지로 이동
+    const handleLicenseRegister = () => {
+        navigate('/myPage/info/licenseCreate'); // 면허 등록 페이지로 이동
+    };
+
+    // 수정 페이지로 이동
+    const handleLicenseModify = () => {
+        navigate('/myPage/info/license'); // 면허 수정 페이지로 이동
+    };
 
     return (
         <div className={styles.licenseInfoContainer}>
             <h4 className={styles.title}>면허 정보 등록</h4>
-            <div className={styles.licenseInfoContent}>
 
-                <div className={styles.license}>
-                    <div className={styles.licenseDetail} style={{ display: 'flex', gap: vwFont(23, 40) }}>
-                        <div><img src={licenseInfo.licensePhoto} style={{ width: '100px', height: '129px', borderRadius: '10px', aspectRatio: '3.5/4.5', }}></img></div>
+            {/* 면허 정보가 없을 경우 '면허 등록' 버튼 표시 */}
+            {
+                !licenseInfo || !licenseInfo.licenseNum ? (
+                    <div style={{ textAlign: "center" }}>
+                        <p>등록된 면허 정보가 없습니다.</p>
+                        <button className={styles.infoChangeButton} onClick={handleLicenseRegister}>
+                            면허 등록하기
+                        </button>
+                    </div>
+                ) : (
+                    <div className={styles.licenseInfoContent}>
+                        <div className={styles.license}>
+                            <div className={styles.licenseDetail} style={{ display: 'flex', gap: vwFont(23, 40) }}>
+                                <div><img src={licenseInfo.licensePhoto} style={{ width: '100px', height: '129px', borderRadius: '10px', aspectRatio: '3.5/4.5', }}></img></div>
 
-                        <div className={styles.licenseDetailInfo}>
-                            <h5 className={styles.subTitle}>자동차운전면허증</h5>
-                            <p>{licenseInfo.licenseNum}</p>
-                            <p>{userInfo.userName}</p>
-                            {/* <p>123456-1******</p> */}
-                            <p>적성검사 : {licenseInfo.licenseDate}</p>
-                            <p>기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간 : {licenseInfo.licenseEndDate}</p>
+                                <div className={styles.licenseDetailInfo}>
+                                    <h5 className={styles.subTitle}>자동차운전면허증</h5>
+                                    <p>{licenseInfo.licenseNum}</p>
+                                    <p>{userInfo.userName}</p>
+                                    {/* <p>123456-1******</p> */}
+                                    <p>적성검사 : {licenseInfo.licenseDate}</p>
+                                    <p>기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간 : {licenseInfo.licenseEndDate}</p>
+                                </div>
+                            </div>
+
+                            <p style={{ width: '100%', textAlign: 'center', fontWeight: '800', }}>에브리카</p>
+                        </div>
+
+                        <div className={styles.info}>
+                            <h5 className={styles.subTitle}>면허정보</h5>
+                            <div className={styles.infoBox}>
+                                <div className={styles.infoDetailTitle}>
+                                    <p>면허고유번호</p>
+                                    <p>발급일</p>
+                                    <p>기간</p>
+                                </div>
+                                <div className={styles.infoDetail}>
+                                    <p>{licenseInfo.licenseNum}</p>
+                                    <p>{licenseInfo.licenseDatee}</p>
+                                    <p>{licenseInfo.licenseEndDate}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styles.infoChange}>
+                            <button
+                                className={styles.infoChangeButton}
+                                onClick={handleLicenseModify}
+                            >
+                                정보수정
+                            </button>
                         </div>
                     </div>
-
-                    <p style={{ width: '100%', textAlign: 'center', fontWeight: '800', }}>에브리카</p>
-                </div>
-
-                <div className={styles.info}>
-                    <h5 className={styles.subTitle}>면허정보</h5>
-                    <div className={styles.infoBox}>
-                        <div className={styles.infoDetailTitle}>
-                            <p>면허고유번호</p>
-                            <p>발급일</p>
-                            <p>기간</p>
-                        </div>
-                        <div className={styles.infoDetail}>
-                            <p>{licenseInfo.licenseNum}</p>
-                            <p>{licenseInfo.licenseDatee}</p>
-                            <p>{licenseInfo.licenseEndDate}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.infoChange}>
-                    <button
-                        className={styles.infoChangeButton}
-                        onClick={movePageHandler}
-                    >
-                        정보수정
-                    </button>
-                </div>
-            </div>
-        </div>
+                )
+            }
+        </div >
     );
 }
 
