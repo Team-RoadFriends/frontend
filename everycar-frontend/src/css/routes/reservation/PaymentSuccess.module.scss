@@ -11,6 +11,9 @@ p, strong {
     font-size: cv.vw-font(7px, 16px);
     color: rgb(79, 79, 79);
 }
+button {
+    font-size: cv.vw-font(7px, 16px);
+}
 
 .reservationInfo {
     @include v.white-box;
