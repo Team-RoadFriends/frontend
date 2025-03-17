@@ -54,7 +54,7 @@ function PlanLinkBox({to, title, content, ico, icoSize}){
             <h3 className='plan-title' style={{ fontSize: 'clamp(10px, 1.7vw, 40px)', marginBottom: '2vw' }}>{ title }</h3>
             {/* 문자열 내의 HTML 태그인 <br> 태그를 그대로 해석하여 줄바꿈 적용 */}
             <p className='plan-content' dangerouslySetInnerHTML={{ __html: content }} style={{ fontSize:'clamp(9px, 1vw, 38px)', marginBottom: '0.5vw', height: '30%' }}></p>
-            <div className='plan-img' style={{ display: 'flex', height:'50%', justifyContent:'right', alignItems:'flex-end' }}><img src={ ico } style={{ width: icoSize, height: icoSize }} ></img></div>
+            <div className='plan-img' style={{ display: 'flex', height:'50%', justifyContent:'right', alignItems:'flex-end' }}><img src={ ico } style={{ width: icoSize, height: icoSize, marginBottom:'10px', }} ></img></div>
         </PlanLinkStyle>
     );
 }
