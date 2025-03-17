@@ -37,7 +37,7 @@ function Header() {
 
   // 드롭다운 메뉴
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  
+
   useEffect(() => {
     setIsMenuVisible(false); // 페이지 이동 시에 드롭다운 닫기
   }, [location]);
@@ -46,7 +46,7 @@ function Header() {
     <div className="header">
       <nav className='menu'>
         <div className='menu-container'>
-          <div className='left-center-group'>
+          <div className='left-center-group'  style={isLoggedIn ? {width: '90%'} : {width: '75%'}}>
             <div className='left-menu'>
               <MenuLinkStyle to='/'>
                 <img src='/logo.png' style={{ width: '138px', height: '50px' }} />
@@ -61,7 +61,7 @@ function Header() {
             </div>
           </div>
 
-          <div className='right-menu'>
+          <div className='right-menu' style={isLoggedIn ? {width: '10%'} : {width: '25%'}}>
             {isLoggedIn ? (
               <div className='drop-down-menu-container'>
                 <button className="menu-button" onClick={() => setIsMenuVisible(prev => !prev)}><FontAwesomeIcon icon={faBars} /></button>
