@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../../css/routes/myPage/info/MyInfoManagement.module.scss';
 import { vwFont } from '../../../utils';
@@ -9,6 +9,15 @@ import useUserInfo from '../../../components/hooks/useUserInfo';
 import useLicense from '../../../components/hooks/useLicense';
 
 function MyInfoManagement() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            // accessToken이 없으면 로그인 페이지로 리디렉션
+            navigate('/auth/login');
+        }
+    }, [navigate]); // navigate가 변경될 때마다 실행되도록 설정
 
     return (
         <div className={styles.myInfoManagement}>

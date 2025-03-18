@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from '../../../css/routes/myPage/reservation/MyReservationHistory.module.scss';
 import { vwFont } from '../../../utils';
@@ -10,6 +11,16 @@ import ReservationHistoryBox from '../../../components/common/myPage/Reservation
 import dummyData from '../../../dummyData/dummyData';
 
 function MyReservationHistory() {
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        // accessToken이 없다면 로그인 페이지로 리디렉션
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            navigate('/auth/login');
+        }
+    }, [navigate]);
+
     return (
         <div className={styles.myReservationHistory}>
             <TopContent firstLocation='내예약내역' />
@@ -181,7 +192,6 @@ function ShortReservationHistory() {
         </div>
     );
 }
-
 
 // 이용약관
 function TermsOfUse() {
