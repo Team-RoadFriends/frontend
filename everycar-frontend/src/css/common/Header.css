@@ -131,23 +131,24 @@
   }
   .left-center-group {
     display: flex;
-    width: 100%; height: 43px;
+    width: 100% !important; height: 43px;
   }
   .left-menu {
-    width: 20%;
+    width: 20% !important;
     order: 1;
   }
   .left-menu img {
     width: 70px !important; height: auto !important;
   }
   .center-menu {
-    width: 75%;
+    width: 75% !important;
     order: 2;
   }
   .right-menu {
-    width: 100%;
+    width: 100% !important;
     padding-top: 6px;
     order: -1; /* 맨앞으로 이동 */
+    justify-content: flex-end;
   }
   .register, .login {
     font-size: clamp(10px, 0.5vw, 10px);
