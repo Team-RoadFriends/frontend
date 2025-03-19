@@ -32,17 +32,25 @@ function WaitingReservationPayment() {
                 reservationType
             });
 
+            // 조건에 따른 다른 데이터 구성
+            let requestBody = {
+                payment: reservationData.payment,
+                reservationType,
+            };
+
+            if (reservationType === "short") {
+                requestBody.reservationSId = reservationId;
+            } else {
+                requestBody.reservationId = reservationId;
+            }
+
             const response = await fetch("http://localhost:8080/api/paypal/pay", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    payment: reservationData.payment,
-                    reservationId,
-                    reservationType
-                })
+                body: JSON.stringify(requestBody)
             });
 
             const data = await response.json();
@@ -79,7 +87,7 @@ function WaitingReservationPayment() {
                                 <tbody>
                                     <tr>
                                         <th>예약 ID</th>
-                                        <td>{reservationData.reservationId}</td>
+                                        {(reservationType === "short") ? (<td>{reservationData.reservationSId}</td>) : (<td>{reservationData.reservationId}</td>)}
                                     </tr>
                                     <tr>
                                         <th>차량명</th>
@@ -91,7 +99,13 @@ function WaitingReservationPayment() {
                                     </tr>
                                     <tr>
                                         <th>대여날짜</th>
-                                        <td>{reservationData.rental_datetime}</td>
+                                        {
+                                            (reservationType === "short") ? (
+                                                <td>{reservationData.reservation_s_start_date}</td>
+                                            ) : (
+                                                <td>{reservationData.rental_datetime}</td>
+                                            )
+                                        }
                                     </tr>
                                     <tr>
                                         <th>반납위치</th>
@@ -105,7 +119,13 @@ function WaitingReservationPayment() {
                                     </tr>
                                     <tr>
                                         <th>반납날짜</th>
-                                        <td>{reservationData.return_datetime}</td>
+                                        {
+                                            (reservationType === "short") ? (
+                                                <td>{reservationData.reservation_s_end_date}</td>
+                                            ) : (
+                                                <td>{reservationData.return_datetime}</td>
+                                            )
+                                        }
                                     </tr>
                                 </tbody>
                             </table>

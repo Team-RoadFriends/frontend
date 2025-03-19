@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useReservation  = (reservationType, reservationId = null) => {
-    const [reservationData, setReservationData] = useState({});
+    const [reservationData, setReservationData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -31,8 +31,14 @@ const useReservation  = (reservationType, reservationId = null) => {
                 const data = await response.json();
                 console.log("API 응답 데이터:", data);
 
-                // 특정 reservationId와 일치하는 예약을 찾음
-                const selectedReservation = data.find(res => res.reservationId == reservationId) || null;
+                // 특정 reservationId와 일치하는 예약을 찾음 (단기는 reservationSId)
+                let selectedReservation = null;
+                if (reservationType === 'short') {
+                    selectedReservation = data.find(res => res.reservationSId == reservationId) || null;
+                } else {
+                    selectedReservation = data.find(res => res.reservationId == reservationId) || null;
+                }
+                 
                 setReservationData(selectedReservation);
             } catch (error) {
                 console.error("예약 정보 가져오기 실패: ",  error);
