@@ -1,2 +1,50 @@
 @use '../../common/commonVariables.scss' as cv;
 @use '../../routes/myPage/commonStyle.scss' as v;
+
+.login {
+    @include v.white-box;
+    margin: cv.vw-font(20px, 30px) 0;
+    .title {
+        font-size: cv.vw-font(15px, 28px);
+        margin-bottom: cv.vw-font(12px, 18px);
+    }
+    .subTitle {
+        font-size: cv.vw-font(12px, 24px);
+    }
+    .buttonContainer {
+        display: flex;
+        gap: 5px;
+    }
+    .loginButton, .registerButton {
+        font-size: cv.vw-font(12px, 20px);
+        background-color: cv.$primary-color;
+        padding: cv.vw-font(5px, 8px) cv.vw-font(6px, 10px);
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .registerButton {
+        background-color: rgb(239, 239, 239);
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+    input {
+        padding: cv.vw-font(2px, 4px) cv.vw-font(4px, 10px);
+        vertical-align: middle;
+    }
+    .loginInput {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .errorMessage {
+        margin: cv.vw-font(12px, 15px) 0;
+    }
+}
