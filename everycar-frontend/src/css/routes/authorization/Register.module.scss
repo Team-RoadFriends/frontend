@@ -50,4 +50,26 @@
         border-radius: 3px;
         cursor: pointer;
     }
+
+    .checkContainer {
+        display: flex;
+        gap: cv.vw-font(5px, 8px);
+    }
+    // 아이디 중복확인
+    .checkDuplicateInput {
+        display: flex;
+        gap: cv.vw-font(5px, 8px);
+        align-items: center;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .duplicateCheckButton {
+        font-size: cv.vw-font(8.6px, 18px);
+        background-color: rgb(230, 230, 230);
+        padding: cv.vw-font(5px, 8px) cv.vw-font(6px, 10px);
+        margin: 0;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
 }
