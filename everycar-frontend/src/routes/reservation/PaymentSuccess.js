@@ -44,20 +44,26 @@ const PaymentSuccess = () => {
             {userReservation ? (
                 <div className={styles.reservationInfo} style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
                     <h3>예약정보</h3>
-                    <p><strong>예약 번호:</strong> {userReservation.reservation_id || "정보 없음"}</p>
+                    {
+                        (reservationType === 'short') ? (
+                            <p><strong>예약 번호:</strong> {userReservation.reservation_s_id || "정보 없음"}</p>
+                        ) : (
+                            <p><strong>예약 번호:</strong> {userReservation.reservation_id || "정보 없음"}</p>
+                        )
+                    }
                     <p><strong>결제 금액:</strong> {userReservation.payment?.toLocaleString() || "정보 없음"}원</p>
                     <p>
-                        <strong>예약 일시:</strong> 
+                        <strong>예약 일시:</strong>
                         {reservationType === "quick"
-                            ? userReservation.rental_datetime 
-                                ? new Date(userReservation.rental_datetime).toLocaleString() 
+                            ? userReservation.rental_datetime
+                                ? new Date(userReservation.rental_datetime).toLocaleString()
                                 : "정보 없음"
-                            : userReservation.reservation_s_start_date 
-                                ? new Date(userReservation.reservation_s_start_date).toLocaleString() 
+                            : userReservation.reservation_s_start_date
+                                ? new Date(userReservation.reservation_s_start_date).toLocaleString()
                                 : "정보 없음"}
                     </p>
-                    
-                    <div style={{margin: "15px 0px"}}>
+
+                    <div style={{ margin: "15px 0px" }}>
                         <hr></hr>
                     </div>
 
@@ -88,8 +94,8 @@ const PaymentSuccess = () => {
 
             {/* 버튼 추가 */}
             <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-                <button 
-                    onClick={() => navigate("/")} 
+                <button
+                    onClick={() => navigate("/")}
                     style={{
                         marginLeft: "7px",
                         padding: "10px 20px",
@@ -103,8 +109,8 @@ const PaymentSuccess = () => {
                     홈으로 돌아가기
                 </button>
 
-                <button 
-                    onClick={() => navigate("/myPage/history")} 
+                <button
+                    onClick={() => navigate("/myPage/history")}
                     style={{
                         padding: "10px 20px",
                         backgroundColor: "#C4FF53",
