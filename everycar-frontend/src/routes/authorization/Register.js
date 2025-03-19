@@ -53,11 +53,6 @@ const Register = () => {
             return;
         }
 
-        if (formData.userPassword !== formData.confirmPassword) {
-            alert("비밀번호가 일치하지 않습니다.");
-            return;
-        }
-
         setIsDuplicatedId(true);
         try {
             const response = await fetch(`http://localhost:8080/api/auth/check-user-id?userId=${formData.userId}`);
