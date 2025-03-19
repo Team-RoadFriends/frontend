@@ -1,2 +1,53 @@
 @use '../../common/commonVariables.scss' as cv;
 @use '../../routes/myPage/commonStyle.scss' as v;
+
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .registerBackground {
+        @include v.white-box;
+        width: 480px;
+        margin: cv.vw-font(20px, 30px) 0;
+        text-align: left;
+    }
+    .title {
+        font-size: cv.vw-font(15px, 26px);
+        padding-bottom: 10px;
+        border-bottom: 2.8px solid rgb(221, 221, 221);
+        margin-bottom: cv.vw-font(12px, 16px);
+        color: rgb(60, 60, 60);
+    }
+    .subTitle, button, label {
+        font-size: cv.vw-font(10px, 18px);
+        margin-bottom: cv.vw-font(8px, 14px);
+        color: rgb(35, 35, 35);
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: cv.vw-font(12px, 16px);
+    }
+    input {
+        padding: cv.vw-font(2px, 4px) cv.vw-font(4px, 10px);
+        vertical-align: middle;
+        width: 230px;
+    }
+    label > input {
+        width: auto;
+    }
+    label {
+        display: flex;
+        gap: 5px;
+        text-align: center;
+        align-items: center;
+    }
+    .registerButton {
+        font-size: cv.vw-font(12px, 20px);
+        background-color: cv.$primary-color;
+        padding: cv.vw-font(5px, 8px) cv.vw-font(6px, 10px);
+        border-radius: 3px;
+        cursor: pointer;
+    }
+}

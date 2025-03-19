@@ -40,24 +40,52 @@ const Register = () => {
     };
 
     return (
-        <div>
-            <h2>회원가입</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="userId" placeholder="아이디" onChange={handleChange} required /><br />
-                <input type="password" name="userPassword" placeholder="비밀번호" onChange={handleChange} required /><br />
-                <input type="text" name="userName" placeholder="이름" onChange={handleChange} required /><br />
-                <input type="email" name="userEmail" placeholder="이메일" onChange={handleChange} required /><br />
-                <input type="text" name="userPhone" placeholder="전화번호" onChange={handleChange} required /><br />
-                <label>
-                    <input type="radio" name="userGender" value={1} checked={formData.userGender == 1} onChange={handleChange} /> 여성
-                </label>
-                <label>
-                    <input type="radio" name="userGender" value={2} checked={formData.userGender == 2} onChange={handleChange} /> 남성
-                </label><br />
-                <input type="date" name="userBirth" onChange={handleChange} required /><br />
-                <input type="text" name="userAddress" placeholder="주소" onChange={handleChange} required /><br />
-                <button type="submit">회원가입</button>
-            </form>
+        <div className={styles.register}>
+            <div className={styles.registerBackground}>
+                <h2 className={styles.title}>회원가입</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>아이디</h4>
+                        <input type="text" name="userId" placeholder="아이디" onChange={handleChange} required /><br />
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>비밀번호</h4>
+                        <input type="password" name="userPassword" placeholder="비밀번호" onChange={handleChange} required /><br />
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>이름</h4>
+                        <input type="text" name="userName" placeholder="이름" onChange={handleChange} required /><br />
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>성별</h4>
+                        <label>
+                            <input type="radio" name="userGender" value={1} checked={formData.userGender == 1} onChange={handleChange} /> 여성
+                            <input type="radio" name="userGender" value={2} checked={formData.userGender == 2} onChange={handleChange} /> 남성
+                        </label>
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>이메일</h4>
+                        <input type="email" name="userEmail" placeholder="이메일" onChange={handleChange} required /><br />
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>전화번호</h4>
+                        <input type="text" name="userPhone" placeholder="전화번호" onChange={handleChange} required /><br />
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>생년월일</h4>
+                        <input type="date" name="userBirth" onChange={handleChange} required /><br />
+                    </div>
+                    <div className={styles.inputContainer}>
+                        <h4 className={styles.subTitle}>주소</h4>
+                        <input type="text" name="userAddress" placeholder="주소" onChange={handleChange} required /><br />
+                    </div>
+
+                    <div className={styles.buttonContainer}>
+                        <button type="submit" className={styles.registerButton}>회원가입</button>
+                    </div>
+
+                </form>
+            </div>
         </div>
     );
 };
