@@ -4,6 +4,8 @@ import axios from "axios";
 import "../../../css/routes/support/inquiry/InquiryModify.css";
 
 function InquiryModify() {
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
     const { id } = useParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -13,7 +15,7 @@ function InquiryModify() {
     // 기존 데이터 불러오기
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/inquiry/${id}`)
+            .get(`${API_BASE_URL}/api/inquiry/${id}`)
             .then((response) => {
                 setFormData({ inquiries_q: response.data.inquiries_q });
             })
@@ -41,7 +43,7 @@ function InquiryModify() {
         }
     
         axios
-            .post(`http://localhost:8080/api/inquiry/${id}`, formData) // PUT → POST 변경
+            .post(`${API_BASE_URL}/api/inquiry/${id}`, formData) // PUT → POST 변경
             .then(() => {
                 alert("문의가 수정되었습니다.");
                 navigate(`/support/inquiryDetail/${id}`); // 수정 후 해당 상세 페이지로 이동

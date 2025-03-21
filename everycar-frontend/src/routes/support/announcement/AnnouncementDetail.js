@@ -4,19 +4,20 @@ import axios from "axios";
 import "../../../css/routes/support/announcement/AnnouncementDetail.css";
 
 function AnnouncementDetail() {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const { id } = useParams(); // URL에서 ID 가져오기
   const [announcement, setAnnouncement] = useState(null);
-  const baseURL = "http://localhost:8080"; // 백엔드 URL
 
   useEffect(() => {
     // 공지사항 데이터 가져오기
     axios
-      .get(`${baseURL}/api/posts/${id}`)
+      .get(`${API_BASE_URL}/api/posts/${id}`)
       .then((response) => {
         let content = response.data.content;
 
         // content 내 이미지 경로를 절대 경로로 변환
-        content = content.replace(/src="\/images/g, `src="${baseURL}/images`);
+        content = content.replace(/src="\/images/g, `src="${API_BASE_URL}/images`);
 
         // 날짜 변환 (ISO 8601 → 한국 날짜 YYYY-MM-DD 형식)
         const utcDate = new Date(response.data.createdAt);

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const useCar = (carId) => {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const { startDate, startTime, endDate, endTime } = useSelector((state) => state.rent);
   const reservationType = useSelector((state) => state.rent.reservationType);
 
@@ -36,8 +37,8 @@ const useCar = (carId) => {
 
         // 예약 타입에 따라 다른 API 엔드포인트 사용
         const apiUrl = reservationType === "quick"
-          ? `http://localhost:8080/api/quick-rent/cars/${carId}?${queryParams}`
-          : `http://localhost:8080/api/short-rent/cars/${carId}?${queryParams}`;
+          ? `${API_BASE_URL}/api/quick-rent/cars/${carId}?${queryParams}`
+          : `${API_BASE_URL}/api/short-rent/cars/${carId}?${queryParams}`;
 
         console.log("API 호출 URL:", apiUrl); // 디버깅용
 

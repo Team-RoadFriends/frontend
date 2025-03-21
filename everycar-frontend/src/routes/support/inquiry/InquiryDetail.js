@@ -4,6 +4,8 @@ import axios from "axios";
 import "../../../css/routes/support/inquiry/InquiryDetail.css";
 
 function InquiryDetail() {
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
     const { id } = useParams();
     const navigate = useNavigate();
     const [inquiry, setInquiry] = useState(null);
@@ -12,7 +14,7 @@ function InquiryDetail() {
         if (!id) return;
 
         axios
-            .get(`http://localhost:8080/api/inquiry/${id}`)
+            .get(`${API_BASE_URL}/api/inquiry/${id}`)
             .then((response) => {
                 console.log("문의 상세 데이터:", response.data);
                 setInquiry(response.data);
@@ -30,7 +32,7 @@ function InquiryDetail() {
 
         if (window.confirm("정말 삭제하시겠습니까?")) {
             axios
-                .delete(`http://localhost:8080/api/inquiry/${id}`)
+                .delete(`${API_BASE_URL}/api/inquiry/${id}`)
                 .then(() => {
                     alert("삭제되었습니다.");
                     navigate("/support/inquiry");

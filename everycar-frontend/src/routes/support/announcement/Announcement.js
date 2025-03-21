@@ -4,6 +4,8 @@ import axios from "axios";
 import "../../../css/routes/support/announcement/Announcement.css";
 
 function Announcement() {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const [announcements, setAnnouncements] = useState([]);
   const [pageInfo, setPageInfo] = useState({
     page: 1, // 현재 페이지
@@ -20,7 +22,7 @@ function Announcement() {
   // 🔹 공지사항 목록 가져오기
   const fetchAnnouncements = (page = 1) => {
     axios
-      .get(`http://localhost:8080/api/posts?page=${page}&size=${pageInfo.size}`)
+      .get(`${API_BASE_URL}/api/posts?page=${page}&size=${pageInfo.size}`)
       .then((response) => {
         const data = response.data;
 

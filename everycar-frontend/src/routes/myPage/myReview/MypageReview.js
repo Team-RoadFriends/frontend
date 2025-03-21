@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // useNavigate import
 
 function MypageReview() {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const { loading, userInfo } = useUserInfo();
   const location = useLocation();
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -67,7 +69,7 @@ function MypageReview() {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await fetch("http://localhost:8080/api/user/reviews", {
+      const response = await fetch(`${API_BASE_URL}/api/user/reviews`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

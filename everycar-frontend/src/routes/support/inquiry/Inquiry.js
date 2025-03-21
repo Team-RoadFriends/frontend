@@ -4,6 +4,8 @@ import axios from "axios";
 import "../../../css/routes/support/inquiry/Inquiry.css";
 
 function Inquiry() {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const [inquiries, setInquiries] = useState([]); // 문의사항 목록
   const [pageInfo, setPageInfo] = useState({
     page: 1, // 현재 페이지
@@ -20,7 +22,7 @@ function Inquiry() {
   // 문의사항 목록 가져오기
   const fetchInquiries = (page = 1) => {
     axios
-      .get(`http://localhost:8080/api/inquiry?page=${page}&size=${pageInfo.size}`)
+      .get(`${API_BASE_URL}/api/inquiry?page=${page}&size=${pageInfo.size}`)
       .then((response) => {
         const data = response.data;
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useReservation  = (reservationType, reservationId = null) => {
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const [reservationData, setReservationData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -19,7 +20,7 @@ const useReservation  = (reservationType, reservationId = null) => {
                     return;
                 }
 
-                let url = `http://localhost:8080/api/${reservationType}/reservations`;
+                let url = `${API_BASE_URL}/api/${reservationType}/reservations`;
 
                 const response = await fetch(url, {
                     method: "GET",
