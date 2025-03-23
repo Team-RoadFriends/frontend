@@ -48,13 +48,14 @@ import MyReservationHistory from './routes/myPage/reservation/MyReservationHisto
 import MyReservationHistoryDetail from './routes/myPage/reservation/MyReservationHistoryDetail';
 import WaitingReservationPayment from './routes/myPage/reservation/WaitingReservationPayment';
 /* 결제 및 정산 페이지 */
-import MyPayment from './routes/myPage/payment/MyPayment';
+// import MyPayment from './routes/myPage/payment/MyPayment';
 /* 문의사항 */
 import MyInquiries from './routes/myPage/inquiries/MyInquiries';
 /* 리뷰 작성 */
 import MypageReview from './routes/myPage/myReview/MypageReview';
 // import MyReview from './routes/myPage/myReview/MyReview';
-
+/*  */
+import Estimate from './routes/support/Estimate';
 let PageStyle = styled.div`
   width: 66%;
   min-height: 100vh;  /* 최소 높이를 화면 전체로 설정 */
@@ -124,6 +125,8 @@ function App() {
             <Route path='inquiryDetail/:id' element={<InquiryDetail />} />
             <Route path='inquiryCreate' element={<InquiryCreate />} />
             <Route path='inquiryModify/:id' element={<InquiryModify />} />
+            {/* 견적확인 */}
+            <Route path='estimate' element={<Estimate />} />
           </Route>
 
           {/* 인증 관련 페이지 */}

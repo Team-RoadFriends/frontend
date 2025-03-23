@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { differenceInDays, format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPosPopup, setPeriodPopup } from '../../redux/rentSlice.js';
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import '../../css/main/Content.css';
 import Event from './Event.js';
@@ -12,11 +14,12 @@ function Content() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
     // Redux에서 상태 가져오기
     const { region, city, startDate, endDate, startTime, endTime, posPopup, periodPopup } = useSelector((state) => state.rent);
-
+    console.log(startTime);
     // 버튼 비활성화 조건 설정 (빠른예약: 1 <= day <= 14)
-    const isButtonDisabled = !startDate || !endDate || differenceInDays(endDate, startDate) < 1 || differenceInDays(endDate, startDate) > 14;
+    const isButtonDisabled = !city || !startDate || !endDate || !startTime || !endTime || differenceInDays(endDate, startDate) < 1 || differenceInDays(endDate, startDate) > 14;
     // 버튼 클릭 시 조건 확인 후 이동
     const moveSpeedReservationHandler = () => {
         if (isButtonDisabled) {
@@ -27,9 +30,13 @@ function Content() {
         navigate('/reservation/quickReservation');
     }
 
+    useEffect(() => {
+        AOS.init();
+      },[])
+
     return (
         <div className='content-container'>
-            <div className='content-box'>
+            <div className='content-box' data-aos="fade-up" data-aos-duration="800">
                 <Event />
             </div>
 

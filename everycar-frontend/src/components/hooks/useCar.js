@@ -34,18 +34,17 @@ const useCar = (carId) => {
         }
 
         const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
-
         // 예약 타입에 따라 다른 API 엔드포인트 사용
         const apiUrl = reservationType === "quick"
           ? `${API_BASE_URL}/api/quick-rent/cars/${carId}?${queryParams}`
           : `${API_BASE_URL}/api/short-rent/cars/${carId}?${queryParams}`;
 
-        console.log("API 호출 URL:", apiUrl); // 디버깅용
+        // console.log("API 호출 URL:", apiUrl); // 디버깅용
 
         const res = await fetch(apiUrl, {
           method: "GET",
           headers: {
-            'Authorization': `Bearer ${token}`,
+            // 'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
@@ -56,7 +55,7 @@ const useCar = (carId) => {
         }
 
         const data = await res.json();
-        console.log("API 응답 데이터:", data); // 디버깅용
+        // console.log("API 응답 데이터:", data); // 디버깅용
 
         if (!data || !data.car) {
           throw new Error("🚨 데이터가 없습니다. (해당 차량을 찾을 수 없음)");

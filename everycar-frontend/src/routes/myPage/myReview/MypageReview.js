@@ -1,5 +1,4 @@
 import styles from "../../../css/routes/myPage/review/myReview.module.scss";
-import { vwFont } from "../../../utils";
 import { useState } from "react";
 import useUserInfo from "../../../components/hooks/useUserInfo";
 import { useLocation } from "react-router-dom";
@@ -7,7 +6,6 @@ import { useNavigate } from "react-router-dom"; // useNavigate import
 
 function MypageReview() {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
   const { loading, userInfo } = useUserInfo();
   const location = useLocation();
   const navigate = useNavigate(); // useNavigate 훅 사용

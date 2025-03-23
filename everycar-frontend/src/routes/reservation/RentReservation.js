@@ -48,6 +48,7 @@ function RentReservation() {
         const fetchCarData = async () => {
             try {
                 const token = localStorage.getItem("accessToken");
+                
                 let apiUrl, queryParams;
 
                 if (reservationType === "quick") {
@@ -77,7 +78,7 @@ function RentReservation() {
                     throw new Error("데이터를 불러오는 데 실패했습니다.");
                 }
                 const data = await response.json();
-                console.log("API 응답 데이터:", data);
+                // console.log("API 응답 데이터:", data);
 
                 setCarData(data.carDto);
                 setParkingList(data.parkingList);
@@ -107,8 +108,8 @@ function RentReservation() {
         setReturnOption(option); // 🚀 반납 옵션 설정 (0 또는 1)
         setSelectedParking(option === 0 ? carData.parking.parking_id : parking);
 
-        console.log("carData.parking.parking_id", carData?.parking?.parking_id);
-        console.log("parking", parking);
+        // console.log("carData.parking.parking_id", carData?.parking?.parking_id);
+        // console.log("parking", parking);
     };
 
     if (loading) return <p>로딩 중...</p>;
@@ -118,7 +119,7 @@ function RentReservation() {
     return (
         <div className={styles.carDetail}>
             <div className={styles.mainTitle}>
-                <h2>예약 및 결제</h2>
+                <h2>주문서</h2>
             </div>
 
             <div className={styles.carDetailContainer}>

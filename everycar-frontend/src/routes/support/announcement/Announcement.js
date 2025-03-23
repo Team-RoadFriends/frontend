@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import "../../../css/routes/support/announcement/Announcement.css";
 
 function Announcement() {
@@ -19,13 +18,13 @@ function Announcement() {
     next: false, // 다음 버튼 활성화 여부
   });
 
-  // 🔹 공지사항 목록 가져오기
+  // 🔹 공지사항 목록 가져오기 (fetch로 변경)
   const fetchAnnouncements = (page = 1) => {
-    axios
-      .get(`${API_BASE_URL}/api/posts?page=${page}&size=${pageInfo.size}`)
-      .then((response) => {
-        const data = response.data;
-
+    fetch(`${API_BASE_URL}/api/posts?page=${page}&size=${pageInfo.size}`, {
+      method: 'GET', // 기본적으로 GET 요청
+    })
+      .then((response) => response.json()) // JSON 형태로 응답 파싱
+      .then((data) => {
         console.log("Fetched posts:", data); // 서버 응답 확인
 
         // 날짜 변환 (ISO → YYYY-MM-DD)
@@ -54,6 +53,11 @@ function Announcement() {
         console.error("Error fetching posts:", error);
       });
   };
+
+  useEffect(() => {
+    // 페이지가 로드될 때마다 스크롤을 맨 위로 이동
+    window.scrollTo(0, 0);
+  }, []);
 
   // 초기 데이터 불러오기
   useEffect(() => {

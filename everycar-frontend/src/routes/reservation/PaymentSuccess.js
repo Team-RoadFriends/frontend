@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { vwFont } from "../../utils";
 import styles from "../../css/routes/reservation/PaymentSuccess.module.scss";
 
 const PaymentSuccess = () => {
@@ -44,7 +43,7 @@ const PaymentSuccess = () => {
     }, [navigate]);
 
     useEffect(() => {
-        console.log("Redux에서 불러온 예약 목록:", reservations);
+        // console.log("Redux에서 불러온 예약 목록:", reservations);
 
         if (!reservations || Object.keys(reservations).length === 0) {
             console.error("Redux에 저장된 예약 목록이 없습니다.");
@@ -61,7 +60,7 @@ const PaymentSuccess = () => {
             return;
         }
 
-        console.log("Redux에서 찾은 최신 예약 정보:", latestReservation);
+        // console.log("Redux에서 찾은 최신 예약 정보:", latestReservation);
         setUserReservation(latestReservation);
         setLoading(false);
     }, [reservations]);

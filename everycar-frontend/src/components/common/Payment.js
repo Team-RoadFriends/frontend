@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { saveReservation } from "../../redux/reservationSlice";
 import { vwFont } from "../../utils";
-import styled from "styled-components";
 
-const LabelStyle = styled.label`
-    display: flex; 
-    text-align: center; 
-    gap: 6px;
-`;
+const loadingGif = "/Loading.gif"; // public 폴더에 있는 로딩 GIF
 
 const Payment = ({ payAmount, agree, car, return_location, selectedCity, selectedRegion }) => {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -20,6 +15,8 @@ const Payment = ({ payAmount, agree, car, return_location, selectedCity, selecte
 
     const userNum = userInfo?.userNum;
     const [depositorName, setDepositorName] = useState("");
+
+    const [loading, setLoading] = useState(false); // 🚀 로딩 상태 추가
 
     /** 🚀짜 변환 함수 (백엔드에서 요구하는 형식) */
     const formatDateTime = (date, time) => {
@@ -33,8 +30,13 @@ const Payment = ({ payAmount, agree, car, return_location, selectedCity, selecte
             return;
         }
 
-        // 예약 유형에 따라 올바른 주문 생성
-        handleReservation(`BANK_${Date.now()}`);
+        setLoading(true); // 🔥 로딩 시작
+
+        setTimeout(() => {
+            // 예약 유형에 따라 올바른 주문 생성
+            handleReservation(`BANK_${Date.now()}`);
+        }, 2000);
+
     };
 
     /** 결제 성공 후 예약 요청 실행 */
@@ -83,8 +85,8 @@ const Payment = ({ payAmount, agree, car, return_location, selectedCity, selecte
             apiUrl = `${API_BASE_URL}/api/short-rent/reservations`;
         }
 
-        console.log("예약 요청 데이터:", reservationData);
-        console.log("API 요청 URL:", apiUrl);
+        // console.log("예약 요청 데이터:", reservationData);
+        // console.log("API 요청 URL:", apiUrl);
 
         try {
             const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
@@ -104,7 +106,7 @@ const Payment = ({ payAmount, agree, car, return_location, selectedCity, selecte
             }
 
             const result = await response.json();
-            console.log("예약 성공:", result);
+            // console.log("예약 성공:", result);
 
             handleReservationSuccess(result);
             navigate("/reservation/paymentSuccess");
@@ -121,10 +123,32 @@ const Payment = ({ payAmount, agree, car, return_location, selectedCity, selecte
     };
 
     return (
-        <div>
-            <button onClick={handlePayment} style={{ cursor: 'pointer', width: '100%', textAlign: 'center', borderRadius: '10px', backgroundColor: '#AFFF4F', marginTop: vwFont(20, 30), paddingTop: vwFont(8, 15), paddingBottom: vwFont(8, 15) }}>
-                {reservationType === "quick" ? "빠른예약하기" : "단기예약하기"}
-            </button>
+        <div style={{ position: "relative" }}>
+            {loading ? ( // 🔥 로딩 화면 표시
+                <div style={{
+                    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+                    backgroundColor: "rgba(255, 255, 255, 0.8)", display: "flex",
+                    justifyContent: "center", alignItems: "center", zIndex: 9999
+                }}>
+                    <img src={loadingGif} alt="로딩 중..." width={100} />
+                </div>
+            ) : (
+                <button
+                    onClick={handlePayment}
+                    style={{
+                        cursor: 'pointer',
+                        width: '100%',
+                        textAlign: 'center',
+                        borderRadius: '10px',
+                        backgroundColor: '#AFFF4F',
+                        marginTop: vwFont(20, 30),
+                        paddingTop: vwFont(8, 15),
+                        paddingBottom: vwFont(8, 15)
+                    }}
+                >
+                    {reservationType === "quick" ? "빠른예약하기" : "단기예약하기"}
+                </button>
+            )}
         </div>
     );
 };

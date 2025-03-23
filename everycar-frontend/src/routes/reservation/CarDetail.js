@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
 import styled from "styled-components";
 import styles from '../../css/routes/CarDetail.module.scss';
 import { vwFont } from '../../utils';
@@ -26,8 +25,8 @@ function CarDetail() {
 
     const { car, totalPrice, loading, error } = useCar(carId);
 
-    console.log("URL에서 받은 carId:", carId);
-    console.log("차량 데이터:", car);
+    // console.log("URL에서 받은 carId:", carId);
+    // console.log("차량 데이터:", car);
 
     const carData = car || dummyCar;
 
@@ -38,7 +37,7 @@ function CarDetail() {
     // const latitude = 37.497942;
     // const longitude = 127.027621;
 
-    console.log(carData);
+    // console.log(carData);
     return (
         <div className={styles.carDetail}>
             <div className={styles.mainTitle}>

@@ -27,13 +27,13 @@ const useLogin = () => {
             const data = await response.json();
             localStorage.setItem('accessToken', data.accessToken); // 2️⃣ 토큰 저장
 
-            console.log("✅ JWT 토큰 저장 완료:", data.accessToken);
+            // console.log("✅ JWT 토큰 저장 완료:", data.accessToken);
 
             // 3️⃣ 토큰이 저장된 후, 0.1초 딜레이 후 유저 정보 요청
             setTimeout(async () => {
                 const token = localStorage.getItem('accessToken'); // ✅ 저장된 토큰 가져오기
 
-                console.log("🔍 저장된 JWT 토큰:", token);
+                // console.log("🔍 저장된 JWT 토큰:", token);
 
                 const userResponse = await fetch(`${API_BASE_URL}/api/user/mypage`, {
                     method: 'GET',
@@ -44,14 +44,14 @@ const useLogin = () => {
                 });
 
                 const textData = await userResponse.text(); // JSON이 빈 값인지 체크
-                console.log("🛠 서버 응답:", textData);
+                // console.log("🛠 서버 응답:", textData);
 
                 if (!textData) {
                     throw new Error("❌ 서버에서 응답이 비어 있습니다.");
                 }
 
                 const userData = JSON.parse(textData);
-                console.log("✅ 유저 정보:", userData);
+                // console.log("✅ 유저 정보:", userData);
 
                 dispatch(setUserInfo(userData)); // Redux에 저장
                 window.dispatchEvent(new Event('loginStateChange')); // 로그인 상태 변경 이벤트 트리거

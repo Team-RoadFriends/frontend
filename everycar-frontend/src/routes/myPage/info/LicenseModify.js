@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setLicenseInfo } from '../../../redux/userSlice';
+import React, { useState } from 'react';
+// import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+// import { setLicenseInfo } from '../../../redux/userSlice';
 import styles from '../../../css/routes/myPage/info/LicenseModify.module.scss';
-import { vwFont } from '../../../utils';
+// import { vwFont } from '../../../utils';
 
-import TopContent from '../../../components/common/myPage/TopContent';
-import ListContainer from '../../../components/common/myPage/ListContainer';
+// import TopContent from '../../../components/common/myPage/TopContent';
+// import ListContainer from '../../../components/common/myPage/ListContainer';
 import useUserInfo from '../../../components/hooks/useUserInfo';
-import useLicense from '../../../components/hooks/useLicense';
+// import useLicense from '../../../components/hooks/useLicense';
 
 const LicenseModify = () => {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -21,7 +21,7 @@ const LicenseModify = () => {
     const [message, setMessage] = useState('');
 
         // 유저 정보 가져오기
-        const { loading, userInfo } = useUserInfo();
+        const { userInfo } = useUserInfo();
 
         const handleSubmit = async (e) => {
             e.preventDefault();
@@ -31,16 +31,19 @@ const LicenseModify = () => {
                 return;
             }
         
+            // 면허 번호에서 하이픈을 제거하여 서버에 보낼 값 준비
+            const formattedLicenseNum = licenseNum.replace(/-/g, '');
+        
             const licenseData = {
-                licenseNum,
+                licenseNum: formattedLicenseNum,  // 하이픈 제거된 값
                 licenseDate,
                 licenseEndDate,
                 userNum: userInfo.userNum,
             };
         
             const token = localStorage.getItem('accessToken');
-            console.log(licenseData);
-            console.log(token); // 토큰 값 확인
+            // console.log(licenseData);
+            // console.log(token); // 토큰 값 확인
         
             try {
                 const response = await fetch(`${API_BASE_URL}/api/license/register`, {
@@ -57,16 +60,58 @@ const LicenseModify = () => {
                 }
         
                 setMessage('면허 정보가 성공적으로 등록되었습니다.');
-                setTimeout(() => navigate('/myPage/info'), 2000); // 여기서 경로 변경
+                
+                // 면허 등록 후 알림 띄우기
+                alert("면허 입력이 완료되었습니다. 재 로그인을 시도해 주세요.");
+        
+                // 확인 버튼을 누르면 로그아웃 처리 및 로그인 페이지로 이동
+                localStorage.removeItem('accessToken');
+                navigate('/auth/login'); // 로그인 페이지로 이동
+                window.location.reload(); // 새로고침
+        
             } catch (error) {
                 setMessage(error.message);
             }
         };
         
+      
+        const handleLicenseDateChange = (e) => {
+            const selectedDate = e.target.value;
+            setLicenseDate(selectedDate); // 발급일 업데이트
+        
+            const selectedDateObj = new Date(selectedDate);
+            if (!isNaN(selectedDateObj)) {
+                const endDate = new Date(selectedDateObj);
+                endDate.setFullYear(endDate.getFullYear() + 10); // 10년 추가
+                setLicenseEndDate(endDate.toISOString().split("T")[0]); // YYYY-MM-DD 형식 변환
+            }
+        };
+
+        const handleLicenseNumChange = (e) => {
+            let inputValue = e.target.value.replace(/\D/g, '');  // 숫자만 허용
+
+            // 최대 12자리까지만 입력받도록 제한
+            if (inputValue.length > 12) {
+                inputValue = inputValue.slice(0, 12);  // 12자리가 넘어가면 자르기
+            }
+        
+            // 각 자리마다 하이픈을 넣어주는 로직
+            if (inputValue.length <= 2) {
+                inputValue = inputValue.replace(/(\d{2})(\d{0,2})/, '$1-$2');  // AA-
+            } else if (inputValue.length <= 4) {
+                inputValue = inputValue.replace(/(\d{2})(\d{2})(\d{0,6})/, '$1-$2-$3');  // AA-BB-
+            } else if (inputValue.length <= 10) {
+                inputValue = inputValue.replace(/(\d{2})(\d{2})(\d{6})(\d{0,2})/, '$1-$2-$3-$4');  // AA-BB-CCCCCC-
+            } else if (inputValue.length <= 12) {
+                inputValue = inputValue.replace(/(\d{2})(\d{2})(\d{6})(\d{2})/, '$1-$2-$3-$4');  // AA-BB-CCCCCC-DD
+            }
+        
+            setLicenseNum(inputValue);  // 포맷팅된 값을 상태에 저장
+        };
         
 
     return (
-        <div className={styles.licenseModify}>
+        <div className={styles.licenseModifyContainer}>
             <h4 className={styles.title}>면허 정보 등록</h4>
             <form onSubmit={handleSubmit}>
                 <table>
@@ -80,8 +125,9 @@ const LicenseModify = () => {
                             <td>
                                 <input
                                     type="text"
+                                    className={styles.textInput}
                                     value={licenseNum}
-                                    onChange={(e) => setLicenseNum(e.target.value)}
+                                    onChange={handleLicenseNumChange}  // 숫자만 유효성 검사
                                     placeholder="면허 번호 입력"
                                     required
                                 />
@@ -90,23 +136,25 @@ const LicenseModify = () => {
                         <tr>
                             <th>발급일</th>
                             <td>
-                                <input
-                                    type="date"
-                                    value={licenseDate}
-                                    onChange={(e) => setLicenseDate(e.target.value)}
-                                    required
-                                />
+                            <input
+                                type="date"
+                                className={styles.dateInput1}
+                                value={licenseDate}
+                                onChange={handleLicenseDateChange} // 발급일 변경 시 처리
+                                required
+                            />
                             </td>
                         </tr>
                         <tr>
                             <th>만료일</th>
                             <td>
-                                <input
-                                    type="date"
-                                    value={licenseEndDate}
-                                    onChange={(e) => setLicenseEndDate(e.target.value)}
-                                    required
-                                />
+                            <input
+                                type="date"
+                                className={styles.dateInput2}
+                                value={licenseEndDate}
+                                readOnly
+                                required
+                            />
                             </td>
                         </tr>
                     </tbody>
