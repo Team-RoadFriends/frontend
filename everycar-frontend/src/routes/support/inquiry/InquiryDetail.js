@@ -66,7 +66,7 @@ function InquiryDetail() {
   }
 
   // 작성자(userNum)와 로그인한 사용자가 동일한지 체크
-  const isAuthor = userInfo && inquiry.userNum === userInfo.user_num;
+  const isAuthor = userInfo && inquiry.userNum === userInfo.userNum;
 
   return (
     <div className="inquiry-detail-container">
