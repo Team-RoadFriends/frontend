@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styles from "../../../css/routes/myPage/reservation/MyReservationDetail.module.scss";
 import axios from "axios";
 import KakaoMap from "../KakaoMap"; // KakaoMap이 있는 경로로 수정
+import CarNameMapper from "../../../components/common/CarNameMapper";
 
 const ReservationDetailBox = () => {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -69,7 +70,7 @@ const ReservationDetailBox = () => {
       <div className={styles.reservationHistoryBox}>
         <h3>예약 차량 정보</h3>
         <div className={styles.reservationCarInfo}>
-        <img src={`/images/main/car/${reservationData.modelName}.png`} alt="차량 이미지" />
+        <img src={`/images/main/car/${CarNameMapper(reservationData.modelName)}.png`} alt="차량 이미지" />
           <div className={styles.rentalInfo}>
             <div className={styles.carTitle}>
               <p className={styles.carName}>
