@@ -22,7 +22,7 @@ function List({ searchQuery, priceRange, selectedGrades }) {
 
   if (loading) return <p>차량 정보를 불러오는 중...</p>;
   if (error) return <p>오류 발생: {error}</p>;
-  if (!cars.length) return <p>이용 가능한 차량이 없습니다.</p>;
+  if (!cars.length) return <div className="right">이용 가능한 차량이 없습니다.</div>;
 
   // 차량 필터링
   const filteredCars = cars.filter(({ car, totalPrice }) => {
