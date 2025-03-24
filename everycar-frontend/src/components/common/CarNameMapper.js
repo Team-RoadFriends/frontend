@@ -27,14 +27,14 @@ const CarNameMapper = (carName) => {
       "EV3": "ev3",
       "EV6": "ev6",
       "EV9": "ev9",
-      "티볼리": "tivoli",
+      "티볼리": "tiballi",
       "코란도": "korando",
-      "토레스": "torrez",
+      "토레스": "toress",
       "액티언": "actyon",
       "쏘나타": "sonata",
       "그랜저": "granger",
       "팰리세이드": "palisade",
-      "싼타페": "santa fe",
+      "싼타페": "santafe",
       "투싼": "tucson",
       "코나": "kona"
     };

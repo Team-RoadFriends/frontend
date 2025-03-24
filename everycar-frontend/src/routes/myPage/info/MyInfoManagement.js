@@ -43,6 +43,7 @@ function Profile() {
   if (loading) return <p>Loading...</p>;
   if (!userInfo) return <p>유저 정보 없음</p>;
 
+  console.log(userInfo);
   const movePageHandler = () => {
     navigate("/myPage/info/profile");
   };
