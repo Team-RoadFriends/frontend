@@ -105,7 +105,7 @@ function InquiryCreate() {
             </div>
 
             <form onSubmit={handleSubmit} className="inquiry-form">
-                <input type="hidden" value={userInfo.user_num}></input>
+                <input type="hidden" value={userInfo.userNum}></input>
                 <div className="form-group">
                     <label htmlFor="inquiries_q">문의 내용</label>
                     <textarea
