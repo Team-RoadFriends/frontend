@@ -14,8 +14,9 @@ function InquiryCreate() {
     // 유저 정보 가져오기
     const { loading, userInfo } = useUserInfo();
 
+    console.log(userInfo);
     useEffect(() => {
-        if (!loading && (!userInfo || userInfo.user_num === 0 || userInfo.user_num === undefined)) {
+        if (!loading && (!userInfo || userInfo.userNum === 0 || userInfo.userNum === undefined)) {
             // 로그인하지 않은 상태이거나 user_num이 0이거나 undefined인 경우
             alert("로그인 후 이용해주세요.");
             navigate("/auth/login"); // 로그인 페이지로 이동
@@ -41,7 +42,7 @@ function InquiryCreate() {
         e.preventDefault();
 
         // user_num이 0이거나 undefined인 경우 글을 작성할 수 없도록 막기
-        if (!userInfo || userInfo.user_num === 0 || userInfo.user_num === undefined) {
+        if (!userInfo || userInfo.userNum === 0 || userInfo.userNum === undefined) {
             alert("로그인 후 글을 작성할 수 있습니다.");
             navigate("/auth/login"); // 로그인 페이지로 이동
             return;
@@ -57,7 +58,7 @@ function InquiryCreate() {
         // userNum을 formData에 추가
         const requestData = {
             ...formData,
-            userNum: userInfo.user_num,  // user_num으로 직접 접근
+            userNum: userInfo.userNum,  // user_num으로 직접 접근
         };
 
         // fetch로 POST 요청 보내기
@@ -88,7 +89,7 @@ function InquiryCreate() {
     }
 
     // 로그인된 사용자만 폼을 볼 수 있도록 처리
-    if (!userInfo || userInfo.user_num === 0 || userInfo.user_num === undefined) {
+    if (!userInfo || userInfo.userNum === 0 || userInfo.userNum === undefined) {
         return <div>로그인 후 이용해주세요.</div>; // 로그인되지 않으면 접근 차단
     }
 
