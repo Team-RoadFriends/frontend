@@ -107,3 +107,10 @@
 .delete-button-inquiry:hover {
     background-color: #c82333;
 }
+
+.inquiry-notice{
+    font-size: 14px;
+    color: #aaa;
+    text-align: left;
+    margin-top: 40px;
+}

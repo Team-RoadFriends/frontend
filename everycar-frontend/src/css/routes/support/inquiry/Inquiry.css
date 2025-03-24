@@ -133,3 +133,10 @@
     color: #3A3D50;
     border: 1px solid #AFFF4F;
 }
+
+.inquiry-notice{
+    font-size: 14px;
+    color: #aaa;
+    text-align: left;
+    margin-top: 40px;
+}

@@ -96,6 +96,13 @@ function InquiryCreate() {
         <div className="inquiry-create-container">
             <h2 className="inquiry-create-title">문의 작성하기</h2>
 
+            <div className="inquiry-notice-box">
+                에브리카 홈페이지 이용 관련 고객문의 게시판 입니다.<br></br><br></br>
+                - 답변은 영업일 기준 09:00~18:00에 순차적으로 처리되며, 긴급한 장애 관련 문의는 전화로 접수해 주시기 바랍니다. <br></br>
+                - 홈페이지를 통한 문의는 절차상 빠른 답변이 어려울 수 있습니다. (답변 기한 7일, 추가 검토가 필요한 경우 14일) <br></br>
+                - 욕설이나 서비스와 상관없는 내용의 문의는 관리자에 의해 비공개 처리될 수 있습니다.
+            </div>
+
             <form onSubmit={handleSubmit} className="inquiry-form">
                 <input type="hidden" value={userInfo.user_num}></input>
                 <div className="form-group">

@@ -31,6 +31,10 @@
     font-weight: bold;
     margin-bottom: 20px;
     display: block;
+    padding: 4px 10px;
+    background-color: #AFFF4F;
+    border-radius: 20px;
+    width: fit-content;
 }
 
 textarea {
@@ -67,4 +71,16 @@ textarea {
 .submit-button {
     background-color: #007bff;
     color: white;
+}
+
+.inquiry-notice-box{
+    font-size: 16px;
+    line-height: normal;
+    color: #aaa;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    text-align: left;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    padding: 20px;
 }
