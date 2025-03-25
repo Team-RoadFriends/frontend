@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import styles from "../../css/routes/reservation/PaymentSuccess.module.scss";
 
 const PaymentSuccess = () => {
@@ -69,6 +70,7 @@ const PaymentSuccess = () => {
         return <p>결제 정보를 불러오는 중...</p>;
     }
 
+    console.log(userReservation);
     return (
         <div className={styles.paymentSuccess} style={{ margin: "30px", textAlign: "left" }}>
             <h2 style={{ marginBottom: "20px" }}>예약완료</h2>
@@ -77,21 +79,15 @@ const PaymentSuccess = () => {
                     <h3>예약정보</h3>
                     {
                         (reservationType === 'short') ? (
-                            <p><strong>예약 번호:</strong> {userReservation.reservation_id || "정보 없음"}</p>
+                            <p><strong>예약 번호:</strong> {userReservation.reservation_s_id || "정보 없음"}</p>
                         ) : (
                             <p><strong>예약 번호:</strong> {userReservation.reservation_id || "정보 없음"}</p>
                         )
                     }
                     <p><strong>결제 금액:</strong> {userReservation.payment?.toLocaleString() || "정보 없음"}원</p>
                     <p>
-                        <strong>예약 일시:</strong>
-                        {reservationType === "quick"
-                            ? userReservation.rental_datetime
-                                ? new Date(userReservation.rental_datetime).toLocaleString()
-                                : "정보 없음"
-                            : userReservation.rental_location
-                                ? new Date(userReservation.rental_location).toLocaleString()
-                                : "정보 없음"}
+                        <strong>예약 일시: </strong>
+                        {new Date().toLocaleString()}
                     </p>
 
                     <div style={{ margin: "15px 0px" }}>
@@ -104,8 +100,7 @@ const PaymentSuccess = () => {
                     {reservationType === "quick" ? (
                         <>
                             <p><strong>차량 모델:</strong> {userReservation.carDto?.model?.model_name || "정보 없음"}</p>
-                            <p><strong>대여 장소:</strong> {userReservation.rental_location || "정보 없음"}</p>
-                            <p><strong>반납 장소:</strong> {userReservation.return_location || "정보 없음"}</p>
+                            <p><strong>대여 장소:</strong> {userReservation.carDto.parking.parking_address  || "정보 없음"}</p>
                             <p><strong>대여 날짜:</strong> {userReservation.rental_datetime || "정보 없음"}</p>
                             <p><strong>반납 날짜:</strong> {userReservation.return_datetime || "정보 없음"}</p>
                         </>
@@ -113,10 +108,9 @@ const PaymentSuccess = () => {
                         // 단기 대여 (short-rent)
                         <>
                             <p><strong>차량 모델:</strong> {userReservation.carDto?.model?.model_name || "정보 없음"}</p>
-                            <p><strong>대여 장소 (지점 ID):</strong> {userReservation.rental_location || "정보 없음"}</p>
-                            <p><strong>반납 장소:</strong> {userReservation.return_location || "정보 없음"}</p>
-                            <p><strong>대여 날짜:</strong> {userReservation.rental_datetime || "정보 없음"}</p>
-                            <p><strong>반납 날짜:</strong> {userReservation.return_datetime || "정보 없음"}</p>
+                            <p><strong>대여 장소:</strong> {userReservation.carDto.parking.parking_address || "정보 없음"}</p>
+                            <p><strong>대여 날짜:</strong> {userReservation.reservation_s_start_date || "정보 없음"}</p>
+                            <p><strong>반납 날짜:</strong> {userReservation.reservation_s_end_date || "정보 없음"}</p>
                         </>
                     )}
                 </div>
